@@ -8,7 +8,7 @@
 require('./site/index.html')
 // Apply the styles in style.css to the page.
 require('./site/style.css')
-var tableData = require('./realtimeUpdate').tableData;
+var drawRealTimeTable = require('./site/realTimeUpdateTable');
 // if you want to use es6, you can do something like
 //require('./es6/myEs6code')
 // here to load the myEs6code.js file, and it will be automatically transpiled.
@@ -23,19 +23,17 @@ client.debug = function(msg) {
     console.info(msg)
   }
 }
-
-tableData.drawTableUI();
-tableData.drawTableHeader();
-tableData.drawTableBody();
+var headerTitle = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];;
+drawRealTimeTable.drawTableBody(headerTitle);
 const exampleSparkline = document.getElementById('example-sparkline')
 function connectCallback() {
-  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
+//  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
   client.subscribe('/fx/prices', function(response) {
     var data = JSON.parse(response.body);
-    tableData.storeStockDataFromStomp(data);
+    drawRealTimeTable.storeStockDataFromStomp(data);
   })
   setInterval(function(){
-    tableData.cleanSparkLineDataAfter30000Sec(tableData.stockTableData);
+    drawRealTimeTable.cleanSparkLineDataAfter30Sec(drawRealTimeTable.stockTableData);
   },30000);
 
 }
