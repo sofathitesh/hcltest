@@ -8,7 +8,7 @@
 require('./site/index.html')
 // Apply the styles in style.css to the page.
 require('./site/style.css')
-var drawRealTimeTable = require('./site/realTimeUpdateTable');
+var drawRealTimeTable = require('./es6/realTimeUpdateTable');
 // if you want to use es6, you can do something like
 //require('./es6/myEs6code')
 // here to load the myEs6code.js file, and it will be automatically transpiled.
