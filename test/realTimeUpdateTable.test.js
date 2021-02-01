@@ -27,7 +27,7 @@ describe("testing of real time update table library", () => {
         var headerTitle = ['Name', 'Best Bid', 'Best Ask', 'Open Bid', 'Open Ask', 'Last Changed Ask', 'Last Change Bid', 'Spark Link Data'];
         expect(drawTableBody(headerTitle, tableDiv)).toBe(undefined);
     })
-    test('test for store data into object', () => {
+    test('test for functions those creat the table body', () => {
         expect(storeStockDataFromStomp(mockData)).toBe(undefined);
         expect(storeStockDataFromStomp(mockData)).toBe(undefined);
         mockData.name = 'rrr';

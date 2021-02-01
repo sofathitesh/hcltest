@@ -5,10 +5,37 @@
     The dev serverver is serving the html and javascript, but it also provides updating fx data on /fx/prices.
      -->
     <script src="stomp.js"></script>
-    <script src="sparkline.js"></script>
 </head>
 <body>
 <div id="render-table"></div>
+
+<h4>Anything you had to change or assume about this task to make your solution</h4>
+<p> <b>Ans:-</b> In this porject i have replaced the index.html content with my content to display the table view. I have added the code in Index.js file as well for calling my library function and i have used the stomp subscribe function to fetch the data from stomp </p>
+<pre>
+    const tableDiv = document.getElementById("render-table");
+var headerTitle = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];
+drawRealTimeTable.drawTableBody(headerTitle, tableDiv);
+function connectCallback() {
+//  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
+  client.subscribe('/fx/prices', function(response) {
+    var data = JSON.parse(response.body);
+    drawRealTimeTable.storeStockDataFromStomp(data);
+  })
+  setInterval(function(){
+    drawRealTimeTable.cleanSparkLineData(drawRealTimeTable.stockTableData);
+  },30000);
+
+}
+</pre>
+<h4>A high level description of your approach</h4>
+<p><b>Ans:-</b> I have used factory pattern design code to achieve this goal. The aim of this structure, I want to prevent the creations of multiple instances. The second point this structure is easy to understand by other developers because I did not implement too much prototyping or prototype chain. Third, this structure helps to implement the Abstraction on inner functions.</p>
+<p>I have created my own library es6/realTimeUpdateTable.js. this library has all functions and with these functions i have achieved the goal</p>
+<h4>If you added any other development-time steps, what they are, why you added them and how to run them</h4>
+<p><b>Ans:-</b> I added jest dependency for test case writing. for test case you just run this command jest test test/realTimeUpdateTable.test.js --coverage </p>
+<h4>Which libraries/frameworks you would have liked to have used (if any), and how they would have made the result better</h4>
+<p><b>Ans:-</b> I would like to use React framework here for better code structure. With help of React and Redux I will manage the data tractions easily. I will make this library a hook for react components for more re-usability</p>
+<h4>You should include your name and email address so if we have trouble running it we can get in touch with you easily</h4>
+<p><b>Ans:-</b> Name Hitesh Sofat, Email sofathitesh@gmail.com</p>
 <script src="bundle.js"></script>
 </body>
 

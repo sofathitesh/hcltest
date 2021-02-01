@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1612205698511" clover="3.2.0">
-  <project timestamp="1612205698511" name="All files">
+<coverage generated="1612206334390" clover="3.2.0">
+  <project timestamp="1612206334390" name="All files">
     <metrics statements="146" coveredstatements="81" conditionals="67" coveredconditionals="31" methods="28" coveredmethods="19" elements="241" coveredelements="131" complexity="0" loc="146" ncloc="146" packages="2" files="2" classes="2"/>
     <package name="es6">
       <metrics statements="72" coveredstatements="72" conditionals="30" coveredconditionals="28" methods="17" coveredmethods="17"/>
-      <file name="realTimeUpdateTable.js" path="/home/sofat/dev-challenge-dist/es6/realTimeUpdateTable.js">
+      <file name="realTimeUpdateTable.js" path="/home/sofat/hc/es6/realTimeUpdateTable.js">
         <metrics statements="72" coveredstatements="72" conditionals="30" coveredconditionals="28" methods="17" coveredmethods="17"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
@@ -82,7 +82,7 @@
     </package>
     <package name="site">
       <metrics statements="74" coveredstatements="9" conditionals="37" coveredconditionals="3" methods="11" coveredmethods="2"/>
-      <file name="sparkline.js" path="/home/sofat/dev-challenge-dist/site/sparkline.js">
+      <file name="sparkline.js" path="/home/sofat/hc/site/sparkline.js">
         <metrics statements="74" coveredstatements="9" conditionals="37" coveredconditionals="3" methods="11" coveredmethods="2"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="cond" truecount="2" falsecount="2"/>

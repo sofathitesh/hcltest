@@ -1,7 +1,7 @@
 /**
  * RealTimeUpdate table library helps us to create table.
  * Every time its auto update the table based on data.
- * Sorting happens with every data call
+ * Sorting happens with every data call and records display in DSEC order.
  * Spark line also shows the fluctuation of data changes in best bid and best ask 
  * @param {object} stockTableData
  * @param {object} tableDiv
