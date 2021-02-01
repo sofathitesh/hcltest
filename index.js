@@ -23,9 +23,9 @@ client.debug = function(msg) {
     console.info(msg)
   }
 }
-var headerTitle = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];;
-drawRealTimeTable.drawTableBody(headerTitle);
-const exampleSparkline = document.getElementById('example-sparkline')
+const tableDiv = document.getElementById("render-table");
+var headerTitle = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];
+drawRealTimeTable.drawTableBody(headerTitle, tableDiv);
 function connectCallback() {
 //  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
   client.subscribe('/fx/prices', function(response) {
@@ -33,7 +33,7 @@ function connectCallback() {
     drawRealTimeTable.storeStockDataFromStomp(data);
   })
   setInterval(function(){
-    drawRealTimeTable.cleanSparkLineDataAfter30Sec(drawRealTimeTable.stockTableData);
+    drawRealTimeTable.cleanSparkLineData(drawRealTimeTable.stockTableData);
   },30000);
 
 }

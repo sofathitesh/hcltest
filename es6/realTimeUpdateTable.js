@@ -11,26 +11,26 @@
  * @param {Object} tableHeaderRow
  * @param {number} counter
  */
-
+const Sparkline = require('../site/sparkline');
 module.exports = (function () {
     let stockTableData = {};
-    let tableDiv = document.getElementById("render-table") || undefined;
-    let table = document.createElement("table") || undefined;
-    let thead = document.createElement('thead') || undefined;
-    let tbody = document.createElement('tbody') || undefined;
-    let tableHeaderRow = document.createElement('tr') || undefined;
+    const table = document.createElement("table");
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+    const tableHeaderRow = document.createElement('tr');
     let counter = 0;
     /**
      * drawTableUI helps to create the table tag and insert that tag into DOM
+     * @param {Object} tableDiv
      */
-    const drawTableUI = () => {
+    const drawTableUI = (tableDiv) => {
         tableDiv.appendChild(table);
     }
     /**
      * drawTableHeader helps to create header of table and append that header object into dom
      * @param {Array} headerTitle 
      */
-    const drawTableHeader = (headerTitle = []) => {
+    const drawTableHeader = (headerTitle) => {
         headerTitle && headerTitle.map((titles) => {
             let tableHeading = document.createElement('th');
             tableHeading.appendChild(document.createTextNode(titles));
@@ -42,10 +42,10 @@ module.exports = (function () {
      * drawTableBody helps to create table body and header then inserts the final object into dom
      * @param {Array} headerTitle 
      */
-    const drawTableBody = (headerTitle = []) => {
+    const drawTableBody = (headerTitle, tableDiv) => {
         if (tableDiv && table) {
-            drawTableUI();
-            drawTableHeader(headerTitle);
+            drawTableUI(tableDiv);
+            drawTableHeader(headerTitle,tableDiv);
             table.appendChild(thead);
             table.appendChild(tbody);
         }
@@ -127,10 +127,10 @@ module.exports = (function () {
         }
     }
     /**
-     * cleanSparkLineDataAfter30000Sec cleaning the spark line data after 30 sec.
+     * cleanSparkLineData cleaning the spark line data after 30 sec.
      * @param {Object} data 
      */
-    const cleanSparkLineDataAfter30Sec = (data) => {
+    const cleanSparkLineData = (data) => {
         let keys = Object.keys(data);
         keys && keys.map((value) => {
             data[value]['sparklineData'] = [];
@@ -159,6 +159,7 @@ module.exports = (function () {
         stockTableData: stockTableData,
         storeStockDataFromStomp: storeStockDataFromStomp,
         drawTableBody: drawTableBody,
-        cleanSparkLineDataAfter30Sec: cleanSparkLineDataAfter30Sec
+        cleanSparkLineData: cleanSparkLineData,
+        sortTableByLastBidChange: sortTableByLastBidChange
     }
 })();
