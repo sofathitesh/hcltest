@@ -56,29 +56,29 @@ module.exports = (function () {
      * @param {String} rowId 
      */
     const drawTableBodyWithData = (data, rowId) => {
-        const objkeys = Object.keys(data);
-        const dataRows = document.createElement('tr');
-        for (let i = 0; i < objkeys.length; i++) {
+        const getStockTitles = Object.keys(data);
+        const tableRows = document.createElement('tr');
+        for (let i = 0; i < getStockTitles.length; i++) {
             const tableBodyValueElement = document.createElement('td');
-            if (objkeys[i] !== 'sparklineData') {
+            if (getStockTitles[i] !== 'sparklineData') {
                 tableBodyValueElement.id = rowId + i;
-                tableBodyValueElement.appendChild(document.createTextNode(data[objkeys[i]]));
+                tableBodyValueElement.appendChild(document.createTextNode(data[getStockTitles[i]]));
             } else {
                 const createSparklineDiv = document.createElement('div');
                 createSparklineDiv.id = rowId + i;
                 tableBodyValueElement.appendChild(createSparklineDiv);
             }
-            dataRows.appendChild(tableBodyValueElement);
+            tableRows.appendChild(tableBodyValueElement);
         }
-        tbody.appendChild(dataRows);
+        tbody.appendChild(tableRows);
     }
     /**
      * updatetableDataRealTime helps to update the table data after getting the data
      * @param {Object} data 
      */
     const updateTableDataRealTime = (data) => {
-        const mainObjKeys = Object.keys(data);
-        mainObjKeys && mainObjKeys.map((parentValue, parentIndex) => {
+        const getStockNames = Object.keys(data);
+        getStockNames && getStockNames.map((parentValue, parentIndex) => {
             let divKeys = Object.keys(data[parentValue]);
             divKeys && divKeys.map((childObjValue, childIndex) => {
                 if (document.getElementById("r" + parentIndex + childIndex)) {
