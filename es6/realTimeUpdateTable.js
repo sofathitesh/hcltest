@@ -51,11 +51,11 @@ module.exports = (function () {
         }
     }
     /**
-     * drawTableBodyData helps to create the TR and TD structure with data
+     * drawTableBodyWithData helps to create the TR and TD structure with data
      * @param {Object} data 
      * @param {String} rowId 
      */
-    const drawTableBodyData = (data, rowId) => {
+    const drawTableBodyWithData = (data, rowId) => {
         const objkeys = Object.keys(data);
         const dataRows = document.createElement('tr');
         for (let i = 0; i < objkeys.length; i++) {
@@ -92,10 +92,10 @@ module.exports = (function () {
         })
     }
     /**
-     * setTableObjectData helps to update the main object and return that object 
+     * setTableObjectWithData helps to update the main object and return that object 
      * @param {Object} data 
      */
-    const setTableObjectData = (data) => {
+    const setTableObjectWithData = (data) => {
         stockTableData[data.name] = {
             "name": data.name,
             "bestBid": parseFloat(data.bestBid).toFixed(2),
@@ -117,13 +117,13 @@ module.exports = (function () {
      */
     const storeStockDataFromStomp = (data) => {
         if (stockTableData[data.name]) {
-            stockTableData[data.name] = setTableObjectData(data);
+            stockTableData[data.name] = setTableObjectWithData(data);
             updateTableDataRealTime(sortTableByLastBidChange(stockTableData));
         } else {
             stockTableData[data.name] = stockTableData[data.name] || {};
-            stockTableData[data.name] = setTableObjectData(data);
+            stockTableData[data.name] = setTableObjectWithData(data);
             sortTableByLastBidChange(stockTableData);
-            drawTableBodyData(stockTableData[data.name], "r" + counter++);
+            drawTableBodyWithData(stockTableData[data.name], "r" + counter++);
         }
     }
     /**

@@ -5,41 +5,41 @@
  */
 
 // This is not really required, but means that changes to index.html will cause a reload.
-require('./site/index.html')
+require('./site/index.html');
 // Apply the styles in style.css to the page.
-require('./site/style.css')
-var drawRealTimeTable = require('./es6/realTimeUpdateTable');
+require('./site/style.css');
+var drawTableWithRealTimeUpdate = require('./es6/realTimeUpdateTable');
 // if you want to use es6, you can do something like
 //require('./es6/myEs6code')
 // here to load the myEs6code.js file, and it will be automatically transpiled.
 
 // Change this to get detailed logging from the stomp library
-global.DEBUG = false
+global.DEBUG = false;
 
-const url = "ws://localhost:8011/stomp"
-const client = Stomp.client(url)
+const url = "ws://localhost:8011/stomp";
+const client = Stomp.client(url);
 client.debug = function(msg) {
   if (global.DEBUG) {
     console.info(msg)
   }
 }
-const tableDiv = document.getElementById("render-table");
-var headerTitle = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];
-drawRealTimeTable.drawTableBody(headerTitle, tableDiv);
+const renderTableDivision = document.getElementById("render-table");
+var tableHeaderTitles = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];
+drawTableWithRealTimeUpdate.drawTableBody(tableHeaderTitles, renderTableDivision);
 function connectCallback() {
 //  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
   client.subscribe('/fx/prices', function(response) {
     var data = JSON.parse(response.body);
-    drawRealTimeTable.storeStockDataFromStomp(data);
+    drawTableWithRealTimeUpdate.storeStockDataFromStomp(data);
   })
   setInterval(function(){
-    drawRealTimeTable.cleanSparkLineData(drawRealTimeTable.stockTableData);
+    drawTableWithRealTimeUpdate.cleanSparkLineData(drawRealTimeTable.stockTableData);
   },30000);
 
 }
 
 client.connect({}, connectCallback, function(error) {
-  alert(error.headers.message)
+  alert(error.headers.message);
 })
 
 
