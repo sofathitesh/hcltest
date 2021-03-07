@@ -12,7 +12,7 @@ const drawTableWithRealTimeUpdate = require('./es6/RealTimeUpdateTable');
 global.DEBUG = false;
 
 const url = "ws://localhost:8011/stomp";
-const client = Stomp.client(url);
+const client = Stomp.client(url); 
 client.debug = function (msg) {
   if (global.DEBUG) {
     util.info(msg)

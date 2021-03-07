@@ -1,4 +1,4 @@
-const { storeStockDataFromStomp, drawTableBody, cleanSparkLineData } = require('../es6/realTimeUpdateTable');
+const { storeStockDataFromStomp, drawTableBody, cleanSparkLineData } = require('../es6/RealTimeUpdateTable');
 let Sparkline = require('../site/sparkline');
 const _ = require('lodash');
 
