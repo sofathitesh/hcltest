@@ -373,19 +373,19 @@
     } else {
         // Browser globals (root is window)
 <span class="cstat-no" title="statement not covered" >        root.Sparkline = factory();</span>
-  }
+    }
 }(this, function () {
 &nbsp;
 &nbsp;
-    function <span class="fstat-no" title="function not covered" >extend(</span>specific, general){
+    function <span class="fstat-no" title="function not covered" >extend(</span>specific, general) {
         var obj = <span class="cstat-no" title="statement not covered" >{};</span>
-<span class="cstat-no" title="statement not covered" >        for(var key in general){</span>
+<span class="cstat-no" title="statement not covered" >        for (var key in general) {</span>
 <span class="cstat-no" title="statement not covered" >            obj[key] = key in specific ? specific[key] : general[key];</span>
         }
 <span class="cstat-no" title="statement not covered" >        return obj;</span>
     }
 &nbsp;
-    function <span class="fstat-no" title="function not covered" >Sparkline(</span>element, options){
+    function <span class="fstat-no" title="function not covered" >Sparkline(</span>element, options) {
 <span class="cstat-no" title="statement not covered" >        this.element = element;</span>
 <span class="cstat-no" title="statement not covered" >        this.options = extend(options || {}, Sparkline.options);</span>
 &nbsp;
@@ -394,8 +394,8 @@
 <span class="cstat-no" title="statement not covered" >            this.canvas = this.element.firstChild;</span>
 <span class="cstat-no" title="statement not covered" >            this.context = this.canvas.getContext("2d");</span>
 <span class="cstat-no" title="statement not covered" >            this.ratio = window.devicePixelRatio || 1;</span>
-            
-<span class="cstat-no" title="statement not covered" >            if(this.options.tooltip){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (this.options.tooltip) {</span>
 <span class="cstat-no" title="statement not covered" >                this.canvas.style.position = "relative";</span>
 <span class="cstat-no" title="statement not covered" >                this.canvas.onmousemove = showTooltip.bind(this);</span>
             }
@@ -416,54 +416,54 @@
         tooltip: null
     };
 &nbsp;
-    Sparkline.init = <span class="fstat-no" title="function not covered" >fu</span>nction(element, options){
+    Sparkline.init = <span class="fstat-no" title="function not covered" >fu</span>nction (element, options) {
 <span class="cstat-no" title="statement not covered" >        return new Sparkline(element, options);</span>
     };
 &nbsp;
-    Sparkline.draw = <span class="fstat-no" title="function not covered" >fu</span>nction(element, points, options){
+    Sparkline.draw = <span class="fstat-no" title="function not covered" >fu</span>nction (element, points, options) {
         var sparkline = <span class="cstat-no" title="statement not covered" >new Sparkline(element, options);</span>
 <span class="cstat-no" title="statement not covered" >        sparkline.draw(points);</span>
 <span class="cstat-no" title="statement not covered" >        return sparkline;</span>
     }
 &nbsp;
-    function <span class="fstat-no" title="function not covered" >getY(</span>minValue, maxValue, offsetY, height, index){
+    function <span class="fstat-no" title="function not covered" >getY(</span>minValue, maxValue, offsetY, height, index) {
         var range = <span class="cstat-no" title="statement not covered" >maxValue - minValue;</span>
-<span class="cstat-no" title="statement not covered" >        if(range == 0){</span>
-<span class="cstat-no" title="statement not covered" >          return offsetY + height/2;</span>
-        }else{
-<span class="cstat-no" title="statement not covered" >          return (offsetY + height) - ((this[index] - minValue) / range)*height;</span>
+<span class="cstat-no" title="statement not covered" >        if (range == 0) {</span>
+<span class="cstat-no" title="statement not covered" >            return offsetY + height / 2;</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            return (offsetY + height) - ((this[index] - minValue) / range) * height;</span>
         }
     }
 &nbsp;
-    function <span class="fstat-no" title="function not covered" >drawDot(</span>radius, color, x, y){
+    function <span class="fstat-no" title="function not covered" >drawDot(</span>radius, color, x, y) {
 <span class="cstat-no" title="statement not covered" >        this.beginPath();</span>
 <span class="cstat-no" title="statement not covered" >        this.fillStyle = color;</span>
-<span class="cstat-no" title="statement not covered" >        this.arc(x, y, radius, 0, Math.PI*2, false);</span>
+<span class="cstat-no" title="statement not covered" >        this.arc(x, y, radius, 0, Math.PI * 2, false);</span>
 <span class="cstat-no" title="statement not covered" >        this.fill();</span>
     }
-  
-    function <span class="fstat-no" title="function not covered" >showTooltip(</span>e){
+&nbsp;
+    function <span class="fstat-no" title="function not covered" >showTooltip(</span>e) {
         var x = <span class="cstat-no" title="statement not covered" >e.offsetX || e.layerX || 0;</span>
-        var delta = (<span class="cstat-no" title="statement not covered" >(this.options.width - this.options.dotRadius*2) / (this.points.length - 1))</span>;
-        var index = <span class="cstat-no" title="statement not covered" >minmax(0, Math.round((x - this.options.dotRadius)/delta), this.points.length - 1);</span>
-        
+        var delta = (<span class="cstat-no" title="statement not covered" >(this.options.width - this.options.dotRadius * 2) / (this.points.length - 1))</span>;
+        var index = <span class="cstat-no" title="statement not covered" >minmax(0, Math.round((x - this.options.dotRadius) / delta), this.points.length - 1);</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        this.canvas.title = this.options.tooltip(this.points[index], index, this.points);</span>
     }
 &nbsp;
-    Sparkline.prototype.draw = <span class="fstat-no" title="function not covered" >fu</span>nction(points){
+    Sparkline.prototype.draw = <span class="fstat-no" title="function not covered" >fu</span>nction (points) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        points = points || [];</span>
 <span class="cstat-no" title="statement not covered" >        this.points = points;</span>
-        
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        this.canvas.width = this.options.width * this.ratio;</span>
 <span class="cstat-no" title="statement not covered" >        this.canvas.height = 20 * this.ratio;</span>
 <span class="cstat-no" title="statement not covered" >        this.canvas.style.width = this.options.width + 'px';</span>
 <span class="cstat-no" title="statement not covered" >        this.canvas.style.height = 20 + 'px';</span>
 &nbsp;
-        var offsetX = <span class="cstat-no" title="statement not covered" >this.options.dotRadius*this.ratio;</span>
-        var offsetY = <span class="cstat-no" title="statement not covered" >this.options.dotRadius*this.ratio;</span>
-        var width = <span class="cstat-no" title="statement not covered" >this.canvas.width - offsetX*2;</span>
-        var height = <span class="cstat-no" title="statement not covered" >this.canvas.height - offsetY*2;</span>
+        var offsetX = <span class="cstat-no" title="statement not covered" >this.options.dotRadius * this.ratio;</span>
+        var offsetY = <span class="cstat-no" title="statement not covered" >this.options.dotRadius * this.ratio;</span>
+        var width = <span class="cstat-no" title="statement not covered" >this.canvas.width - offsetX * 2;</span>
+        var height = <span class="cstat-no" title="statement not covered" >this.canvas.height - offsetY * 2;</span>
 &nbsp;
         var minValue = <span class="cstat-no" title="statement not covered" >this.options.minValue || Math.min.apply(Math, points);</span>
         var maxValue = <span class="cstat-no" title="statement not covered" >this.options.maxValue || Math.max.apply(Math, points);</span>
@@ -474,14 +474,14 @@
         var y = <span class="cstat-no" title="statement not covered" >getY.bind(points, minValue, maxValue, offsetY, height);</span>
         var delta = <span class="cstat-no" title="statement not covered" >width / (points.length - 1);</span>
 &nbsp;
-        var dot = <span class="cstat-no" title="statement not covered" >drawDot.bind(this.context, this.options.dotRadius*this.ratio);</span>
+        var dot = <span class="cstat-no" title="statement not covered" >drawDot.bind(this.context, this.options.dotRadius * this.ratio);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        this.context.beginPath();</span>
 <span class="cstat-no" title="statement not covered" >        this.context.strokeStyle = this.options.lineColor;</span>
-<span class="cstat-no" title="statement not covered" >        this.context.lineWidth = this.options.lineWidth*this.ratio;</span>
+<span class="cstat-no" title="statement not covered" >        this.context.lineWidth = this.options.lineWidth * this.ratio;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        this.context.moveTo(x, y(0));</span>
-<span class="cstat-no" title="statement not covered" >        for(var i=<span class="cstat-no" title="statement not covered" >1;</span> i&lt;points.length; i++){</span>
+<span class="cstat-no" title="statement not covered" >        for (var i = <span class="cstat-no" title="statement not covered" >1;</span> i &lt; points.length; i++) {</span>
 <span class="cstat-no" title="statement not covered" >            x += delta;</span>
 <span class="cstat-no" title="statement not covered" >            this.context.lineTo(x, y(i));</span>
 &nbsp;
@@ -490,13 +490,13 @@
         }
 <span class="cstat-no" title="statement not covered" >        this.context.stroke();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        dot(this.options.startColor, offsetX + (points.length == 1 ? width/2 : 0), y(0));</span>
-<span class="cstat-no" title="statement not covered" >        dot(this.options.endColor, offsetX + (points.length == 1 ? width/2 : width), y(i - 1));</span>
-<span class="cstat-no" title="statement not covered" >        dot(this.options.minColor, minX + (points.length == 1 ? width/2 : 0), y(points.indexOf(minValue)));</span>
-<span class="cstat-no" title="statement not covered" >        dot(this.options.maxColor, maxX + (points.length == 1 ? width/2 : 0), y(points.indexOf(maxValue)));</span>
+<span class="cstat-no" title="statement not covered" >        dot(this.options.startColor, offsetX + (points.length == 1 ? width / 2 : 0), y(0));</span>
+<span class="cstat-no" title="statement not covered" >        dot(this.options.endColor, offsetX + (points.length == 1 ? width / 2 : width), y(i - 1));</span>
+<span class="cstat-no" title="statement not covered" >        dot(this.options.minColor, minX + (points.length == 1 ? width / 2 : 0), y(points.indexOf(minValue)));</span>
+<span class="cstat-no" title="statement not covered" >        dot(this.options.maxColor, maxX + (points.length == 1 ? width / 2 : 0), y(points.indexOf(maxValue)));</span>
     }
-    
-    function <span class="fstat-no" title="function not covered" >minmax(</span>a, b, c){
+&nbsp;
+    function <span class="fstat-no" title="function not covered" >minmax(</span>a, b, c) {
 <span class="cstat-no" title="statement not covered" >        return Math.max(a, Math.min(b, c));</span>
     }
 &nbsp;
@@ -508,7 +508,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Feb 10 2021 10:49:41 GMT+0530 (India Standard Time)
+                at Sun Mar 07 2021 16:09:21 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../prettify.js"></script>

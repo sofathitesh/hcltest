@@ -12,7 +12,8 @@
  * @param {number} counter
  */
 const Sparkline = require('../site/sparkline');
-const util = require('util')
+const util = require('util');
+const sparklineData = "sparklineData";
 module.exports = (function () {
     let stockTableData = {};
     const table = document.createElement("table");
@@ -25,42 +26,30 @@ module.exports = (function () {
      * @param {Object} tableDiv
      */
     const drawTableUI = (tableDiv) => {
-        try {
-            tableDiv.appendChild(table);
-        } catch (error) {
-            util.log(error);
-        }
+        tableDiv.appendChild(table);
     }
     /**
      * drawTableHeader helps to create header of table and append that header object into dom
      * @param {Array} headerTitle 
      */
     const drawTableHeader = (headerTitle) => {
-        try {
-            headerTitle && headerTitle.map((titles) => {
-                let tableHeading = document.createElement('th');
-                tableHeading.appendChild(document.createTextNode(titles));
-                tableHeaderRow.appendChild(tableHeading);
-            })
-            thead.appendChild(tableHeaderRow);
-        } catch (error) {
-            util.log(error);
-        }
+        headerTitle && headerTitle.map((titles) => {
+            let tableHeading = document.createElement('th');
+            tableHeading.appendChild(document.createTextNode(titles));
+            tableHeaderRow.appendChild(tableHeading);
+        })
+        thead.appendChild(tableHeaderRow);
     }
     /**
      * drawTableBody helps to create table body and header then inserts the final object into dom
      * @param {Array} headerTitle 
      */
     const drawTableBody = (headerTitle, tableDiv) => {
-        try {
-            if (tableDiv && table) {
-                drawTableUI(tableDiv);
-                drawTableHeader(headerTitle, tableDiv);
-                table.appendChild(thead);
-                table.appendChild(tbody);
-            }
-        } catch (error) {
-            util.log(error);
+        if (tableDiv && table) {
+            drawTableUI(tableDiv);
+            drawTableHeader(headerTitle, tableDiv);
+            table.appendChild(thead);
+            table.appendChild(tbody);
         }
     }
     /**
@@ -69,47 +58,39 @@ module.exports = (function () {
      * @param {String} rowId 
      */
     const drawTableBodyWithData = (data, rowId) => {
-        try {
-            const getStockTitles = Object.keys(data);
-            const tableRows = document.createElement('tr');
-            for (let i = 0; i < getStockTitles.length; i++) {
-                const tableBodyValueElement = document.createElement('td');
-                if (getStockTitles[i] !== 'sparklineData') {
-                    tableBodyValueElement.id = rowId + i;
-                    tableBodyValueElement.appendChild(document.createTextNode(data[getStockTitles[i]]));
-                } else {
-                    const createSparklineDiv = document.createElement('div');
-                    createSparklineDiv.id = rowId + i;
-                    tableBodyValueElement.appendChild(createSparklineDiv);
-                }
-                tableRows.appendChild(tableBodyValueElement);
+        const getStockTitles = Object.keys(data);
+        const tableRows = document.createElement('tr');
+        for (let i = 0; i < getStockTitles.length; i++) {
+            const tableBodyValueElement = document.createElement('td');
+            if (getStockTitles[i] !== sparklineData) {
+                tableBodyValueElement.id = rowId + i;
+                tableBodyValueElement.appendChild(document.createTextNode(data[getStockTitles[i]]));
+            } else {
+                const createSparklineDiv = document.createElement('div');
+                createSparklineDiv.id = rowId + i;
+                tableBodyValueElement.appendChild(createSparklineDiv);
             }
-            tbody.appendChild(tableRows);
-        } catch (error) {
-            util.log(error);
+            tableRows.appendChild(tableBodyValueElement);
         }
+        tbody.appendChild(tableRows);
     }
     /**
      * updatetableDataRealTime helps to update the table data after getting the data
      * @param {Object} data 
      */
     const updateTableDataRealTime = (data) => {
-        try {
-            const getStockNames = Object.keys(data);
-            getStockNames && getStockNames.map((parentValue, parentIndex) => {
-                let divKeys = Object.keys(data[parentValue]);
-                divKeys && divKeys.map((childObjValue, childIndex) => {
-                    if (document.getElementById("r" + parentIndex + childIndex) && childObjValue !== 'sparklineData') {
-                        document.getElementById("r" + parentIndex + childIndex).innerText = data[parentValue][childObjValue];
-                    } else {
-                        Sparkline.draw(document.getElementById("r" + parentIndex + childIndex), data[parentValue][childObjValue]);
-                    }
+        const getStockNames = Object.keys(data);
+        getStockNames && getStockNames.map((parentValue, parentIndex) => {
+            let divKeys = Object.keys(data[parentValue]);
+            divKeys && divKeys.map((childObjValue, childIndex) => {
+                if (document.getElementById("r" + parentIndex + childIndex) && childObjValue !== sparklineData) {
+                    document.getElementById("r" + parentIndex + childIndex).innerText = data[parentValue][childObjValue];
+                } else {
+                    Sparkline.draw(document.getElementById("r" + parentIndex + childIndex), data[parentValue][childObjValue]);
+                }
 
-                })
             })
-        } catch (error) {
-            util.log(error);
-        }
+        })
     }
     /**
      * setTableObjectWithData helps to update the main object and return that object 
@@ -124,9 +105,9 @@ module.exports = (function () {
             "openAsk": parseFloat(data.openAsk).toFixed(2),
             "lastChangeAsk": parseFloat(data.lastChangeAsk).toFixed(2),
             "lastChangeBid": parseFloat(data.lastChangeBid).toFixed(2),
-            "sparklineData": stockTableData[data.name]["sparklineData"] || []
+            "sparklineData": stockTableData[data.name][sparklineData] || []
         };
-        stockTableData[data.name]["sparklineData"].push(data.bestBid + data.bestAsk / 2);
+        stockTableData[data.name][sparklineData].push(data.bestBid + data.bestAsk / 2);
         return stockTableData[data.name];
     }
     /**
@@ -153,7 +134,7 @@ module.exports = (function () {
     const cleanSparkLineData = (data) => {
         let keys = Object.keys(data);
         keys && keys.map((value) => {
-            data[value]['sparklineData'] = [];
+            data[value][sparklineData] = [];
         })
     }
     /**
