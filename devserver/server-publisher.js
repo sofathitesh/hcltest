@@ -1,4 +1,9 @@
 "use strict"
+/**
+ * This code helps to provide the dummy data on stomp call
+ * Provide the data for spark line and stock 
+ * Provide the data on every second with unique values
+ */
 const Stomp = require('stompjs')
 const util = require('util')
 

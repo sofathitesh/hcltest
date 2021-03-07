@@ -14,6 +14,8 @@
 const Sparkline = require('../site/sparkline');
 const util = require('util');
 const sparklineData = "sparklineData";
+const _ = require('lodash');
+
 module.exports = (function () {
     let stockTableData = {};
     const table = document.createElement("table");
@@ -33,7 +35,7 @@ module.exports = (function () {
      * @param {Array} headerTitle 
      */
     const drawTableHeader = (headerTitle) => {
-        headerTitle && headerTitle.map((titles) => {
+        headerTitle && _.map(headerTitle, (titles) => {
             let tableHeading = document.createElement('th');
             tableHeading.appendChild(document.createTextNode(titles));
             tableHeaderRow.appendChild(tableHeading);
@@ -80,9 +82,9 @@ module.exports = (function () {
      */
     const updateTableDataRealTime = (data) => {
         const getStockNames = Object.keys(data);
-        getStockNames && getStockNames.map((parentValue, parentIndex) => {
+        getStockNames && _.map(getStockNames, (parentValue, parentIndex) => {
             let divKeys = Object.keys(data[parentValue]);
-            divKeys && divKeys.map((childObjValue, childIndex) => {
+            divKeys && _.map(divKeys, (childObjValue, childIndex) => {
                 if (document.getElementById("r" + parentIndex + childIndex) && childObjValue !== sparklineData) {
                     document.getElementById("r" + parentIndex + childIndex).innerText = data[parentValue][childObjValue];
                 } else {
@@ -133,7 +135,7 @@ module.exports = (function () {
      */
     const cleanSparkLineData = (data) => {
         let keys = Object.keys(data);
-        keys && keys.map((value) => {
+        keys && _.map(keys, (value) => {
             data[value][sparklineData] = [];
         })
     }
@@ -144,14 +146,14 @@ module.exports = (function () {
     const sortTableByLastBidChange = (data) => {
         let dummyArray = [];
         let keys = Object.keys(data);
-        keys && keys.map((value) => {
+        keys && _.map(keys, (value) => {
             dummyArray.push(data[value]);
         })
         dummyArray.sort(function (a, b) {
             return b.lastChangeBid - a.lastChangeBid;
         })
         data = {};
-        dummyArray && dummyArray.map((sortedValues, index) => {
+        dummyArray && _.map(dummyArray, (sortedValues, index) => {
             data[sortedValues.name] = data[sortedValues.name] || dummyArray[index];
         })
         return data;

@@ -1,5 +1,6 @@
 const { storeStockDataFromStomp, drawTableBody, cleanSparkLineData } = require('../es6/realTimeUpdateTable');
 let Sparkline = require('../site/sparkline');
+const _ = require('lodash');
 
 describe("testing of real time update table library", () => {
     document.body.innerHTML = `

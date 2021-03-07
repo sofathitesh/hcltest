@@ -20,8 +20,11 @@ client.debug = function (msg) {
 }
 const renderTableDivision = document.getElementById("render-table");
 const tableHeaderTitles = ['Name', 'Best Bid', 'Best Ask', 'Open Bid', 'Open Ask', 'Last Changed Ask', 'Last Change Bid', 'Spark Link Data'];
-drawTableWithRealTimeUpdate.drawTableBody(tableHeaderTitles, renderTableDivision);
-
+try {
+  drawTableWithRealTimeUpdate.drawTableBody(tableHeaderTitles, renderTableDivision);
+} catch (error) {
+  util.log(error);
+}
 /**
  * connectCallback helps to connect with stomp server and helps to get the data
  */
@@ -29,12 +32,19 @@ drawTableWithRealTimeUpdate.drawTableBody(tableHeaderTitles, renderTableDivision
 function connectCallback() {
   client.subscribe('/fx/prices', function (response) {
     const data = JSON.parse(response.body);
-    drawTableWithRealTimeUpdate.storeStockDataFromStomp(data);
+    try {
+      drawTableWithRealTimeUpdate.storeStockDataFromStomp(data);
+    } catch (error) {
+      util.log(error);
+    }
   })
-  setInterval(function () {
-    drawTableWithRealTimeUpdate.cleanSparkLineData(drawTableWithRealTimeUpdate.stockTableData);
-  }, 30000);
-
+  try {
+    setInterval(function () {
+      drawTableWithRealTimeUpdate.cleanSparkLineData(drawTableWithRealTimeUpdate.stockTableData);
+    }, 30000);
+  } catch (error) {
+    util.log(error);
+  }
 }
 
 /**
