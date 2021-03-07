@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1615141662624" clover="3.2.0">
-  <project timestamp="1615141662624" name="All files">
+<coverage generated="1615143586122" clover="3.2.0">
+  <project timestamp="1615143586123" name="All files">
     <metrics statements="148" coveredstatements="83" conditionals="67" coveredconditionals="32" methods="28" coveredmethods="19" elements="243" coveredelements="134" complexity="0" loc="148" ncloc="148" packages="2" files="2" classes="2"/>
     <package name="es6">
       <metrics statements="74" coveredstatements="74" conditionals="30" coveredconditionals="29" methods="17" coveredmethods="17"/>
-      <file name="realTimeUpdateTable.js" path="/home/sofat/hc/es6/realTimeUpdateTable.js">
+      <file name="RealTimeUpdateTable.js" path="/home/sofat/hc/es6/RealTimeUpdateTable.js">
         <metrics statements="74" coveredstatements="74" conditionals="30" coveredconditionals="29" methods="17" coveredmethods="17"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>

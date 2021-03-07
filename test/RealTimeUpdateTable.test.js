@@ -7,7 +7,7 @@ describe("testing of real time update table library", () => {
         <body><div id='render-table'></div></body>
     `;
 
-    jest.mock('../es6/realTimeUpdateTable', () => ({
+    jest.mock('../es6/RealTimeUpdateTable', () => ({
         __esModule: true,
         drawTableBody: jest.fn(),
         storeStockDataFromStomp: jest.fn(),
