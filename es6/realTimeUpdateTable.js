@@ -12,6 +12,7 @@
  * @param {number} counter
  */
 const Sparkline = require('../site/sparkline');
+const util = require('util')
 module.exports = (function () {
     let stockTableData = {};
     const table = document.createElement("table");
@@ -24,30 +25,42 @@ module.exports = (function () {
      * @param {Object} tableDiv
      */
     const drawTableUI = (tableDiv) => {
-        tableDiv.appendChild(table);
+        try {
+            tableDiv.appendChild(table);
+        } catch (error) {
+            util.log(error);
+        }
     }
     /**
      * drawTableHeader helps to create header of table and append that header object into dom
      * @param {Array} headerTitle 
      */
     const drawTableHeader = (headerTitle) => {
-        headerTitle && headerTitle.map((titles) => {
-            let tableHeading = document.createElement('th');
-            tableHeading.appendChild(document.createTextNode(titles));
-            tableHeaderRow.appendChild(tableHeading);
-        })
-        thead.appendChild(tableHeaderRow);
+        try {
+            headerTitle && headerTitle.map((titles) => {
+                let tableHeading = document.createElement('th');
+                tableHeading.appendChild(document.createTextNode(titles));
+                tableHeaderRow.appendChild(tableHeading);
+            })
+            thead.appendChild(tableHeaderRow);
+        } catch (error) {
+            util.log(error);
+        }
     }
     /**
      * drawTableBody helps to create table body and header then inserts the final object into dom
      * @param {Array} headerTitle 
      */
     const drawTableBody = (headerTitle, tableDiv) => {
-        if (tableDiv && table) {
-            drawTableUI(tableDiv);
-            drawTableHeader(headerTitle,tableDiv);
-            table.appendChild(thead);
-            table.appendChild(tbody);
+        try {
+            if (tableDiv && table) {
+                drawTableUI(tableDiv);
+                drawTableHeader(headerTitle, tableDiv);
+                table.appendChild(thead);
+                table.appendChild(tbody);
+            }
+        } catch (error) {
+            util.log(error);
         }
     }
     /**
@@ -56,40 +69,47 @@ module.exports = (function () {
      * @param {String} rowId 
      */
     const drawTableBodyWithData = (data, rowId) => {
-        const getStockTitles = Object.keys(data);
-        const tableRows = document.createElement('tr');
-        for (let i = 0; i < getStockTitles.length; i++) {
-            const tableBodyValueElement = document.createElement('td');
-            if (getStockTitles[i] !== 'sparklineData') {
-                tableBodyValueElement.id = rowId + i;
-                tableBodyValueElement.appendChild(document.createTextNode(data[getStockTitles[i]]));
-            } else {
-                const createSparklineDiv = document.createElement('div');
-                createSparklineDiv.id = rowId + i;
-                tableBodyValueElement.appendChild(createSparklineDiv);
+        try {
+            const getStockTitles = Object.keys(data);
+            const tableRows = document.createElement('tr');
+            for (let i = 0; i < getStockTitles.length; i++) {
+                const tableBodyValueElement = document.createElement('td');
+                if (getStockTitles[i] !== 'sparklineData') {
+                    tableBodyValueElement.id = rowId + i;
+                    tableBodyValueElement.appendChild(document.createTextNode(data[getStockTitles[i]]));
+                } else {
+                    const createSparklineDiv = document.createElement('div');
+                    createSparklineDiv.id = rowId + i;
+                    tableBodyValueElement.appendChild(createSparklineDiv);
+                }
+                tableRows.appendChild(tableBodyValueElement);
             }
-            tableRows.appendChild(tableBodyValueElement);
+            tbody.appendChild(tableRows);
+        } catch (error) {
+            util.log(error);
         }
-        tbody.appendChild(tableRows);
     }
     /**
      * updatetableDataRealTime helps to update the table data after getting the data
      * @param {Object} data 
      */
     const updateTableDataRealTime = (data) => {
-        const getStockNames = Object.keys(data);
-        getStockNames && getStockNames.map((parentValue, parentIndex) => {
-            let divKeys = Object.keys(data[parentValue]);
-            divKeys && divKeys.map((childObjValue, childIndex) => {
-                if (document.getElementById("r" + parentIndex + childIndex)) {
-                    if (childObjValue !== 'sparklineData') {
+        try {
+            const getStockNames = Object.keys(data);
+            getStockNames && getStockNames.map((parentValue, parentIndex) => {
+                let divKeys = Object.keys(data[parentValue]);
+                divKeys && divKeys.map((childObjValue, childIndex) => {
+                    if (document.getElementById("r" + parentIndex + childIndex) && childObjValue !== 'sparklineData') {
                         document.getElementById("r" + parentIndex + childIndex).innerText = data[parentValue][childObjValue];
                     } else {
                         Sparkline.draw(document.getElementById("r" + parentIndex + childIndex), data[parentValue][childObjValue]);
                     }
-                }
+
+                })
             })
-        })
+        } catch (error) {
+            util.log(error);
+        }
     }
     /**
      * setTableObjectWithData helps to update the main object and return that object 

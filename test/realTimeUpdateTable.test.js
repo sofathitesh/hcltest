@@ -24,7 +24,7 @@ describe("testing of real time update table library", () => {
         lastChangeBid: -3.3132504990770713
     }
     test('test dom creation', () => {
-        var headerTitle = ['Name', 'Best Bid', 'Best Ask', 'Open Bid', 'Open Ask', 'Last Changed Ask', 'Last Change Bid', 'Spark Link Data'];
+        const headerTitle = ['Name', 'Best Bid', 'Best Ask', 'Open Bid', 'Open Ask', 'Last Changed Ask', 'Last Change Bid', 'Spark Link Data'];
         expect(drawTableBody(headerTitle, tableDiv)).toBe(undefined);
     })
     test('test for functions those creat the table body', () => {

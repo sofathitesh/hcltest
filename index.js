@@ -6,40 +6,42 @@
 
 // This is not really required, but means that changes to index.html will cause a reload.
 require('./site/index.html');
-// Apply the styles in style.css to the page.
 require('./site/style.css');
-var drawTableWithRealTimeUpdate = require('./es6/realTimeUpdateTable');
-// if you want to use es6, you can do something like
-//require('./es6/myEs6code')
-// here to load the myEs6code.js file, and it will be automatically transpiled.
-
-// Change this to get detailed logging from the stomp library
+const util = require('util')
+const drawTableWithRealTimeUpdate = require('./es6/realTimeUpdateTable');
 global.DEBUG = false;
 
 const url = "ws://localhost:8011/stomp";
 const client = Stomp.client(url);
-client.debug = function(msg) {
+client.debug = function (msg) {
   if (global.DEBUG) {
-    console.info(msg)
+    util.info(msg)
   }
 }
 const renderTableDivision = document.getElementById("render-table");
-var tableHeaderTitles = ['Name','Best Bid','Best Ask','Open Bid','Open Ask','Last Changed Ask', 'Last Change Bid','Spark Link Data'];
+const tableHeaderTitles = ['Name', 'Best Bid', 'Best Ask', 'Open Bid', 'Open Ask', 'Last Changed Ask', 'Last Change Bid', 'Spark Link Data'];
 drawTableWithRealTimeUpdate.drawTableBody(tableHeaderTitles, renderTableDivision);
+
+/**
+ * connectCallback helps to connect with stomp server and helps to get the data
+ */
+
 function connectCallback() {
-//  document.getElementById('stomp-status').innerHTML = "It has now successfully connected to a stomp server serving price updates for some foreign exchange currency pairs."
-  client.subscribe('/fx/prices', function(response) {
-    var data = JSON.parse(response.body);
+  client.subscribe('/fx/prices', function (response) {
+    const data = JSON.parse(response.body);
     drawTableWithRealTimeUpdate.storeStockDataFromStomp(data);
   })
-  setInterval(function(){
-    drawTableWithRealTimeUpdate.cleanSparkLineData(drawRealTimeTable.stockTableData);
-  },30000);
+  setInterval(function () {
+    drawTableWithRealTimeUpdate.cleanSparkLineData(drawTableWithRealTimeUpdate.stockTableData);
+  }, 30000);
 
 }
 
-client.connect({}, connectCallback, function(error) {
-  alert(error.headers.message);
+/**
+ * connect is init the connection with stomp server
+ */
+client.connect({}, connectCallback, function (error) {
+  util.log(error.headers.message);
 })
 
 
