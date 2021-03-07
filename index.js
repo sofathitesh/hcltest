@@ -8,7 +8,7 @@
 require('./site/index.html');
 require('./site/style.css');
 const util = require('util')
-const drawTableWithRealTimeUpdate = require('./es6/realTimeUpdateTable');
+const drawTableWithRealTimeUpdate = require('./es6/RealTimeUpdateTable');
 global.DEBUG = false;
 
 const url = "ws://localhost:8011/stomp";
